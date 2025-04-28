@@ -1,0 +1,406 @@
+/* Basic Reset and Body Styles */
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 900px; /* Slightly wider for timeline */
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1, h2, h3, h4 {
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+h1 { border-bottom: 2px solid #eee; padding-bottom: 10px; }
+h2 { border-bottom: 1px solid #eee; padding-bottom: 5px; }
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+/* Tabs Navigation */
+.tabs-nav {
+    margin-bottom: 30px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.tabs-nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.tabs-nav a:hover {
+    color: #0056b3;
+}
+
+/* Info Blocks (Mission, Parties, Key) */
+.info-block {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-left: 4px solid #007bff;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.info-block h3 {
+    margin-top: 0;
+    color: #007bff;
+}
+
+.timeline-key {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.timeline-key li {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Timeline Key Colors (Match these to your event circle/border colors) */
+.timeline-key li[data-category="Context Added"] { background-color: #6c757d; } /* Gray */
+.timeline-key li[data-category="Corporation Changes"] { background-color: #28a745; } /* Green */
+.timeline-key li[data-category="Legal"] { background-color: #dc3545; } /* Red */
+.timeline-key li[data-category="Employee B"] { background-color: #ffc107; color: #333; } /* Yellow */
+.timeline-key li[data-category="RUNext"] { background-color: #17a2b8; } /* Cyan */
+.timeline-key li[data-category="Social Media"] { background-color: #fd7e14; } /* Orange */
+.timeline-key li[data-category="ILLIT Updates"] { background-color: #6f42c1; } /* Purple */
+
+
+/* --- Main Timeline Styling --- */
+.main-timeline {
+    position: relative;
+    margin: 40px 0;
+    padding: 0; /* Remove padding here */
+}
+
+/* The central vertical line */
+.main-timeline::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    background-color: #ddd; /* Lighter line */
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -1.5px;
+    z-index: 0;
+}
+
+/* Styling for the year markers */
+.timeline-year {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 40px 0 20px; /* Space above and below year */
+    position: relative;
+    z-index: 1; /* Ensure year is above the line */
+    background-color: #fff; /* Background to make line disappear behind text */
+    padding: 0 10px;
+    display: inline-block; /* Shrink background to text width */
+    left: 50%;
+    transform: translateX(-50%); /* Center the block */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Container for events within a year */
+.timeline-events-container {
+    position: relative;
+    margin-bottom: 30px; /* Space after each year's events */
+}
+
+/* Styling for each event item */
+.timeline-event {
+    padding: 10px 40px;
+    position: relative;
+    width: 50%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    z-index: 1; /* Ensure events are above the line */
+}
+
+/* Position items on the left side */
+.timeline-event.left {
+    left: 0;
+}
+
+/* Position items on the right side */
+.timeline-event.right {
+    left: 50%;
+}
+
+/* The circle marker on the line */
+.timeline-event::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #007bff; /* Default circle color */
+    border: 2px solid #fff;
+    top: 15px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* Adjust circle position for items on the left side */
+.timeline-event.left::after {
+    right: -8.5px;
+}
+
+/* Adjust circle position for items on the right side */
+.timeline-event.right::after {
+    left: -8.5px;
+}
+
+/* Category specific circle colors */
+.timeline-event[data-category="Context Added"]::after { background-color: #6c757d; }
+.timeline-event[data-category="Corporation Changes"]::after { background-color: #28a745; }
+.timeline-event[data-category="Legal"]::after { background-color: #dc3545; }
+.timeline-event[data-category="Employee B"]::after { background-color: #ffc107; }
+.timeline-event[data-category="RUNext"]::after { background-color: #17a2b8; }
+.timeline-event[data-category="Social Media"]::after { background-color: #fd7e14; }
+.timeline-event[data-category="ILLIT Updates"]::after { background-color: #6f42c1; }
+
+
+/* Styling for the date */
+.event-date {
+    position: absolute;
+    top: 15px;
+    width: 80px;
+    z-index: 1;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Position date for items on the left side */
+.timeline-event.left .event-date {
+    right: -100px;
+    text-align: left;
+}
+
+/* Position date for items on the right side */
+.timeline-event.right .event-date {
+    left: -100px;
+    text-align: right;
+}
+
+/* Styling for the content bubble */
+.event-content {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Arrow pointing to the line */
+.event-content::before {
+    content: " ";
+    position: absolute;
+    top: 20px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px;
+    border-color: transparent transparent transparent #f9f9f9;
+    right: -20px;
+}
+
+/* Adjust arrow for items on the right side */
+.timeline-event.right .event-content::before {
+    left: -20px;
+    border-color: transparent #f9f9f9 transparent transparent;
+}
+
+/* Styling for the clickable header */
+.event-header {
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Styling for the hidden details */
+.event-details {
+    display: none; /* Hide by default */
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Images within details */
+.event-details img,
+.section-content img {
+    max-width: 100%; /* Ensure images don't overflow */
+    height: auto;
+    display: block; /* Prevent extra space below image */
+    margin: 10px auto; /* Center images */
+    border-radius: 4px;
+}
+
+/* Preformatted text (like KKT messages) */
+pre {
+    background-color: #eee;
+    padding: 10px;
+    border-left: 3px solid #007bff;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin: 10px 0;
+    border-radius: 4px;
+    font-size: 0.85em;
+}
+
+
+/* --- Expandable Section Styling (for other tabs) --- */
+.section-item {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.section-title {
+    background-color: #e9e9e9;
+    padding: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.section-title:hover {
+    background-color: #dcdcdc;
+}
+
+.section-content {
+    padding: 15px;
+    border-top: 1px solid #eee;
+    display: none; /* Hide by default */
+}
+
+/* Footnote styling */
+.sources-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 2px solid #eee;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.sources-section ol {
+    padding-left: 20px;
+}
+
+.sources-section li {
+    margin-bottom: 8px;
+}
+
+/* Style for footnote links in text */
+a[href^="#source-"] {
+    font-size: 0.8em;
+    vertical-align: super;
+    text-decoration: none;
+    color: #007bff;
+}
+
+a[href^="#source-"]:hover {
+    text-decoration: underline;
+}
+
+/* Basic Responsive Adjustments */
+@media (max-width: 768px) {
+    .main-timeline::after {
+        left: 20px; /* Move line to the left */
+        margin-left: 0;
+    }
+
+    .timeline-event {
+        width: 100%; /* Full width */
+        padding-left: 40px; /* Keep space for circle */
+        padding-right: 10px;
+        left: 0; /* Align all items to the left */
+    }
+
+    .timeline-event.right {
+        left: 0; /* Align right items to the left */
+    }
+
+    .timeline-event::after {
+        left: 15px; /* Position circle on the left line */
+        right: auto; /* Remove right positioning */
+    }
+
+    .timeline-event.right::after {
+         left: 15px; /* Ensure right items' circles are also on the left line */
+    }
+
+    .event-date {
+        position: relative; /* Date inside the bubble */
+        top: auto;
+        width: auto;
+        text-align: left;
+        margin-bottom: 5px;
+        color: #333; /* Darker color */
+    }
+
+    .timeline-event.left .event-date,
+    .timeline-event.right .event-date {
+        right: auto;
+        left: auto;
+        text-align: left;
+    }
+
+    .event-content::before {
+        left: 20px; /* Position arrow on the left */
+        right: auto;
+        border-color: transparent transparent #f9f9f9 transparent; /* Flip arrow direction */
+        top: -20px; /* Position above the bubble */
+    }
+
+    .timeline-event.right .event-content::before {
+        left: 20px; /* Ensure right items' arrows are also on the left */
+        border-color: transparent transparent #f9f9f9 transparent; /* Keep arrow direction */
+    }
+
+    .timeline-year {
+        left: 20px; /* Align year to the left line */
+        transform: translateX(0);
+        text-align: left;
+        padding-left: 0;
+    }
+
+     .tabs-nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
